@@ -9,7 +9,14 @@ There are two Fiji installations needed:
 * Another located at the target system, a computer-cluster.
 
 ## Build 
-Use maven with package target to build a jar of this project.
+Use [maven](https://maven.apache.org/) with package target to build a jar of this project.
+
+From the command line this can be done like that:
+```
+git clone https://github.com/MKrumnikl/Ij1MPIWrapper.git
+cd Ij1MPIWrapper
+mvn package
+```
 
 ## Install
 Before building this package you must:
@@ -20,7 +27,22 @@ Steps for installation:
 * download and install Fiji on the target system (if it is not already installed);
 * paste the project's jar file in Fiji's either plugins or jars directory (any one of the two directories).
 
-It should now be ready for use. 
+You can copy the jar file into your Fiji installation with a command like this:
+```
+cp target/ParallelMacro-0.0.1-SNAPSHOT.jar path/to/Fiji.app/jars/target/ParallelMacro-0.0.1-SNAPSHOT.jar
+```
+
+You can copy it to the HPC cluster like with [zip](https://linux.die.net/man/1/zip) and [scp](https://linux.die.net/man/1/scp). If you work on Windows, you can do this e.g. via the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10):
+```
+zip -r Fiji.app.zip path/to/Fiji.app/
+scp Fiji.app.zip <username>@<servername>:/home/<username>/
+```
+
+After logging into the cluster, [unzip](https://linux.die.net/man/1/unzip) the fiji installation:
+```
+unzip Fiji.app.zip
+```
+
 ### If it does not work:
 Make sure that the directory mpi.jar is in the $LD\_LIBRARY\_PATH of the target system.
 Parallel-Macro will find the mpi.jar automatically in the directories listed in the environment variable.
